@@ -1,0 +1,87 @@
+from google.colab import files
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.interpolate import make_interp_spline
+from matplotlib.lines import MarkerStyle
+files = files.upload()
+df = pd.read_excel('resultados_porescopo (1).xlsx')
+df2 = pd.read_excel('dados_porsetores.xlsx')
+barWidth = 0.18
+r1 = np.arange(len(df['Total']))
+r2 = [x + barWidth for x in r1]
+r3 = [x + barWidth  for x in r2]
+plt.bar(r1,df['Escopo 01'], color='#b2d8d8', width=barWidth,label='Escopo 01')
+plt.bar(r2,df2['Escopo 02'], color='#008080', width=barWidth,label='Escopo 02')
+plt.xticks([r + barWidth for r in range(len(df['Escopo 01']))], ['2018','2019','2020','2021','2022'])
+plt.legend(bbox_to_anchor = (1.05, 0.2))
+plt.xlabel("Anos Observados", fontsize=11)
+plt.ylabel("t CO2e", fontsize=11)
+#energia estacionaria
+plt.subplot(3, 1, 1)
+plt.plot(df2['Anos'],df2['Cluster01'],color='#b2d8d8', linestyle='dashed',marker='x',label='Energia Estacionária')
+ax = plt.gca()
+ax.get_xaxis().set_visible(False)
+plt.legend(loc='lower right', frameon=False,fontsize=9)
+
+#transportes
+plt.subplot(3, 1, 2)
+plt.plot(df2['Anos'],df2['Cluster01'],color='#008080', linestyle='dashed',marker='^',label='Transportes')
+plt.ylabel("t CO2e", fontsize=11)
+ax = plt.gca()
+ax.get_xaxis().set_visible(False)
+plt.legend(loc='lower right', frameon=False,fontsize=9)
+
+#residuossolidos
+plt.subplot(3, 1, 3)
+plt.plot(df2['Anos'],df2['Cluster01'],color='#004c4c', linestyle='dashed',marker='d',label='Resíduos Sólidos')
+plt.xlabel("Anos Observados", fontsize=11)
+plt.xticks(df2['Anos'], [int(val) for val in df2['Anos']])
+plt.legend(loc='lower right', frameon=False,fontsize=9)
+categorias1 = ['Energia Estacionária', 'Transportes', 'Resíduos Sólidos']
+
+#2018
+plt.subplot(3, 2, 1)
+valores1 = [1952, 17874, 13453]
+cores = ['#b2d8d8', '#008080', '#004c4c']
+coluna = [None] * len(valores1)
+plt.pie(valores1, labels= coluna, colors=cores, autopct='%1.1f%%', startangle=140, shadow = True)
+plt.title('2018', fontsize=11)
+plt.axis('equal')
+
+#2019
+plt.subplot(3, 2, 2)
+valores1 = [1984, 17958, 14942]
+cores = ['#b2d8d8', '#008080', '#004c4c']
+coluna = [None] * len(valores1)
+plt.pie(valores1, labels= coluna, colors=cores, autopct='%1.1f%%', startangle=140, shadow = True)
+plt.title('2019', fontsize=11)
+plt.axis('equal')
+
+#2020
+plt.subplot(3, 2, 3)
+valores1 = [1793, 14910, 15750]
+cores = ['#b2d8d8', '#008080', '#004c4c']
+coluna = [None] * len(valores1)
+plt.pie(valores1, labels= coluna, colors=cores, autopct='%1.1f%%', startangle=140, shadow = True)
+plt.title('2020', fontsize=11)
+plt.axis('equal')
+
+#2021
+plt.subplot(3, 2, 4)
+valores1 = [1905, 15791, 16039]
+cores = ['#b2d8d8', '#008080', '#004c4c']
+coluna = [None] * len(valores1)
+plt.pie(valores1, labels= coluna, colors=cores, autopct='%1.1f%%', startangle=140, shadow = True)
+plt.title('2021', fontsize=11)
+plt.axis('equal')
+
+#2022
+plt.subplot(3, 2, 5)
+valores1 = [1878, 16577, 16156]
+cores = ['#b2d8d8', '#008080', '#004c4c']
+coluna = [None] * len(valores1)
+plt.pie(valores1, labels= coluna, colors=cores, autopct='%1.1f%%', startangle=140, shadow = True)
+plt.legend(categorias1,bbox_to_anchor = (1.25, 0.85))
+plt.title('2022', fontsize=11)
+plt.axis('equal')
